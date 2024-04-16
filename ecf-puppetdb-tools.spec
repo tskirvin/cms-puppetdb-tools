@@ -1,7 +1,7 @@
 Name:           ecf-puppetdb-tools
 Summary:        Scripts for querying the puppetdb
-Version:        2.2.7
-Release:        1%{?dist}
+Version:        2.2.8
+Release:        0%{?dist}
 Group:          Applications/System
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source0:        %{name}-%{version}-%{release}.tar.gz
@@ -64,6 +64,12 @@ fi
 %{python3_sitelib}/*egg-info
 
 %changelog
+* Tue Apr 16 2024   Tim Skirvin <tskirvin@fnal.gov>  2.2.8-0
+- puppetdb-fact - json output is now parseable by jq, which seems like a win
+- puppetdb-hosts - looking for networking.fqdn rather than fqdn
+- puppetdb-tooquiet - looking for networking.fqdn rather than fqdn
+- puppetdb-node-resources - looking for networking.fqdn rather than fqdn
+
 * Fri May 19 2023   Tim Skirvin <tskirvin@fnal.gov>  2.2.7-1
 - puppetdb-fact - handles rarely-used structured facts better
 

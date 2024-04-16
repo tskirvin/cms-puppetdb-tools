@@ -25,7 +25,7 @@ def main():
     if len(args) < 1:   host_search = '.*'
     else:               host_search = args[0]
 
-    query = "['~', ['fact', 'fqdn'], '^%s$']" % host_search
+    query = "['~', ['fact', 'networking.fqdn'], '^%s$']" % host_search
     try:
         for node in puppetdb.queryNodes(query, opt):
             if 'certname' in node: print(node['certname'])

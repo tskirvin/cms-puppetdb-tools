@@ -48,12 +48,15 @@ def main():
     headers = {'Accept': 'application/json'}
 
     fact = args[0]
+    array = []
     if len(fact.split('.')) > 1:
         url = puppetdb.generateUrl('inventory', opt)
         if len(args) == 2:
             data = {'query': '["=", "facts.%s", "%s"]' % (fact, args[1])}
         else:
             data = {}
+
+        sys.exit(0)
 
         try:
             if opt.debug: print("url: %s\ndata: %s" % (url, data))
@@ -66,15 +69,16 @@ def main():
                     pass
                 else:
                     if opt.json:
+                        name = entry['certname']
                         j = {
-                            'certname': entry['certname'],
+                            'certname': name,
                             'environment': entry['environment'],
                             'name': fact,
                             'value': value
                         }
-                        print(j)
+                        array.append(j)
                     else:
-                        print("%-35s %-42s" % (certname, value))
+                        array.append("%-35s %-42s" % (certname, value))
         except Exception as e:
             p.error(e)
 
@@ -86,13 +90,19 @@ def main():
             r = puppetdb.request(url, headers=headers)
             for node in r.json():
                 if opt.json:
-                    print(node)
+                    array.append(node)
                 else:
                     certname = node['certname']
                     value = node['value']
-                    print("%-35s %-42s" % (certname, value))
+                    array.append("%-35s %-42s" % (certname, value))
         except Exception as e:
             p.error(e)
+
+    if opt.json:
+        import json
+        print(json.dumps(array, indent=4))
+    else:
+        print(array)
 
     sys.exit(0)
 
@@ -161,7 +171,7 @@ Tim Skirvin <tskirvin@fnal.gov>
 
 =head1 COPYRIGHT
 
-Copyright 2016-2023, Fermi National Accelerator Laboratory
+Copyright 2016-2024, Fermi National Accelerator Laboratory
 
 This program is free software; you may redistribute it and/or modify
 it under the same terms as Perl itself.

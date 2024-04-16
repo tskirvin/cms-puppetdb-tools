@@ -8,6 +8,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.2.8] - 2024-04-16
+
+* puppetdb-fact - json output is now parseable by jq, which seems like a win
+* puppetdb-hosts - looking for networking.fqdn rather than fqdn
+
 ## [2.2.7] - 2023-05-19
 
 * puppetdb-fact - handles rarely-used structured facts better (have to

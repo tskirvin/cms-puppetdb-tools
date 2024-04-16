@@ -60,7 +60,7 @@ def main():
     if len(args) >= 3: resource_title = args[2]
     else:              resource_title = None
 
-    query = "['~', ['fact', 'fqdn'], '^%s$']" % host_search
+    query = "['~', ['fact', 'networking.fqdn'], '^%s$']" % host_search
     try:
         payload = {'query': json.dumps(eval(query))}
     except SyntaxError:
@@ -188,7 +188,7 @@ Based in part on https://github.com/JHaals/puppetdb-grep
 
 =head1 COPYRIGHT
 
-Copyright 2013-2020, Fermi National Accelerator Laboratory
+Copyright 2013-2024, Fermi National Accelerator Laboratory
 
 This program is free software; you may redistribute it and/or modify
 it under the same terms as Perl itself.
