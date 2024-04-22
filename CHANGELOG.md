@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.2.9] - 2024-04-22
+
+* puppetdb-fact - bug fixes (had left a debugging 'exit 0')
+
 ## [2.2.8] - 2024-04-16
 
 * puppetdb-fact - json output is now parseable by jq, which seems like a win

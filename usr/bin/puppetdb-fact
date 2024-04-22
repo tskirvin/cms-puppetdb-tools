@@ -56,8 +56,6 @@ def main():
         else:
             data = {}
 
-        sys.exit(0)
-
         try:
             if opt.debug: print("url: %s\ndata: %s" % (url, data))
             r = puppetdb.request(url, headers=headers, data=data)
@@ -102,7 +100,7 @@ def main():
         import json
         print(json.dumps(array, indent=4))
     else:
-        print(array)
+        print("\n".join(array))
 
     sys.exit(0)
 
