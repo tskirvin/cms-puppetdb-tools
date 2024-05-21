@@ -43,6 +43,7 @@ api = {
         'events':        '/pdb/query/v4/events',
         'facts':         '/pdb/query/v4/facts',
         'fact-contents': '/pdb/query/v4/fact-contents',
+        'inventory':     '/pdb/query/v4/inventory',
         'nodes':         '/pdb/query/v4/nodes',
         'reports':       '/pdb/query/v4/reports',
         'resources':     '/pdb/query/v4/resources',
@@ -179,10 +180,17 @@ def generateUrl(action, optHash, *argArray):
 
 def hostFact(fact, opt, value=None):
     """
-    Return a hash of name-to-fact values for a given fact.
+    Return a hash of name-to-fact values for a given fact.  It may support
+    dotted fact values, but not efficiently; you should probably use
+    the inventory endpoint for that.
     """
-    if value:   url = generateUrl('facts', opt, fact, value)
-    else:       url = generateUrl('facts', opt, fact)
+    pieces = fact.split('.')
+
+    if len(pieces) == 1:
+        if value:   url = generateUrl('facts', opt, fact, value)
+        else:       url = generateUrl('facts', opt, fact)
+    else:
+        url = generateUrl('facts', opt, pieces[0])
 
     payload = {}
 
@@ -202,7 +210,19 @@ def hostFact(fact, opt, value=None):
     hash = {}
     for node in r.json():
         name = node['certname']
-        hash[name] = node['value']
+        if len(pieces) > 1:
+            v = node['value']
+            try:
+                for piece in pieces[1:]:
+                    v = v[piece]
+                if value:
+                    if v == value: hash[name] = v
+                else:
+                    hash[name] = v
+            except:
+                pass
+        else:
+            hash[name] = node['value']
 
     return hash
 

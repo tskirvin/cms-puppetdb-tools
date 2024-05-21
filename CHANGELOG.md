@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.2.10] - 2024-05-21
+
+* hostFact() - now supports dotted facts, kinda-sorta
+
 ## [2.2.9] - 2024-04-22
 
 * puppetdb-fact - bug fixes (had left a debugging 'exit 0')

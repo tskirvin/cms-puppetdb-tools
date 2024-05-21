@@ -1,6 +1,6 @@
 Name:           ecf-puppetdb-tools
 Summary:        Scripts for querying the puppetdb
-Version:        2.2.9
+Version:        2.2.10
 Release:        0%{?dist}
 Group:          Applications/System
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -64,6 +64,9 @@ fi
 %{python3_sitelib}/*egg-info
 
 %changelog
+* Tue May 21 2024   Tim Skirvin <tskirvin@fnal.gov>  2.2.10-0
+- hostFact() - now supports dotted facts, kinda-sorta
+
 * Tue Apr 16 2024   Tim Skirvin <tskirvin@fnal.gov>  2.2.9-0
 - puppetdb-fact - bug fixes
 
